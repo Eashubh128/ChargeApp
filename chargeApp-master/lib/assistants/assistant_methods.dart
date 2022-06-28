@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:charging_app/api_config.dart';
 import 'package:charging_app/assistants/request_assistant.dart';
+import 'package:charging_app/globals.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 
@@ -52,7 +53,10 @@ class AssistantMethods {
       }),
     );
 
+    var res = jsonDecode(response.body);
+
     if (response.statusCode == 200) {
+      token = res["customerAuthToken"];
       return "success";
     } else {
       return "Otp didn't match";
