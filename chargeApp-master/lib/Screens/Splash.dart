@@ -1,7 +1,10 @@
 import 'dart:async';
 
 import 'package:charging_app/Screens/login_screen.dart';
+import 'package:charging_app/Screens/qr_sacn_screen.dart';
+import 'package:charging_app/globals.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MySplashScreen extends StatefulWidget {
   const MySplashScreen({Key? key}) : super(key: key);
@@ -17,7 +20,10 @@ class _MySplashScreenState extends State<MySplashScreen> {
     Timer(
         const Duration(seconds: 5),
         () => Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => const Login())));
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    tokenForsharedpref == null ? Login() : Qr_scan_screen())));
   }
 
   @override
@@ -26,26 +32,24 @@ class _MySplashScreenState extends State<MySplashScreen> {
       resizeToAvoidBottomInset: false,
       body: Container(
         padding: EdgeInsets.only(top: 220, bottom: 50),
-        child: Column(
-            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                child: Image.asset(
-                  "assets/logo.png",
-                  scale: .7,
-                ),
-                padding: EdgeInsets.only(left: 10, right: 10),
-              ),
-              const SizedBox(
-                height: 73,
-              ),
-              SizedBox(
-                height: 200,
-              ),
-              Container(
-                child: Image.asset("assets/Decarbonizing Bharat.png"),
-              )
-            ]),
+        child: Column(children: [
+          Container(
+            child: Image.asset(
+              "assets/logo.png",
+              scale: .7,
+            ),
+            padding: EdgeInsets.only(left: 10, right: 10),
+          ),
+          const SizedBox(
+            height: 73,
+          ),
+          SizedBox(
+            height: 200,
+          ),
+          Container(
+            child: Image.asset("assets/Decarbonizing Bharat.png"),
+          )
+        ]),
         decoration: const BoxDecoration(
             gradient: LinearGradient(
           colors: [

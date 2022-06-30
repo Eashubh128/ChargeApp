@@ -6,6 +6,7 @@ import 'package:charging_app/assistants/request_assistant.dart';
 import 'package:charging_app/globals.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AssistantMethods {
   static Future<String> searchAddressForGeographicCoOrdinates(
@@ -56,6 +57,8 @@ class AssistantMethods {
     var res = jsonDecode(response.body);
 
     if (response.statusCode == 200) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('authtoken', res["customerAuthToken"]);
       token = res["customerAuthToken"];
       return "success";
     } else {
